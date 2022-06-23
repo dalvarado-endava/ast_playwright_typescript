@@ -4,7 +4,9 @@
   "description": "Automation software testing in typescript using Playwright",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test:e2e:chrome": "playwright test --config=e2e.config.ts --project=Chrome",
+    "test:e2e:firefox": "playwright test --config=e2e.config.ts --project=Firefox",
+    "test:e2e:webkit": "playwright test --config=e2e.config.ts --project=Webkit"
   },
   "repository": {
     "type": "git",
