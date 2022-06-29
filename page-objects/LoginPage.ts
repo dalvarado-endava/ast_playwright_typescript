@@ -1,7 +1,8 @@
 import { Page, Locator, expect } from "@playwright/test";
+import { LoginError } from "../helpers/Enums";
+import { AbstractPage } from "./AbstractPage";
 
-export class LoginPage {
-  readonly page: Page;
+export class LoginPage extends AbstractPage {
   readonly emailInput: Locator;
   readonly passwordInput: Locator;
   readonly signInButton: Locator;
@@ -12,7 +13,7 @@ export class LoginPage {
   readonly alertMessage: Locator;
 
   constructor(page: Page) {
-    this.page = page;
+    super(page);
     this.emailInput = page.locator("#email");
     this.passwordInput = page.locator("#passwd");
     this.signInButton = page.locator("#SubmitLogin");
@@ -35,17 +36,17 @@ export class LoginPage {
     await this.registerButton.click();
   }
 
-  async assertErrorMessage(type: string) {
+  async assertErrorMessage(type: LoginError) {
     switch (type) {
-      case "email": {
+      case LoginError.EMAIL: {
         await expect(this.alertMessage).toContainText("Invalid email address");
         break;
       }
-      case "password": {
+      case LoginError.PASSWORD: {
         await expect(this.alertMessage).toContainText("Invalid password");
         break;
       }
-      case "authentication": {
+      case LoginError.AUTHENTICATION: {
         await expect(this.alertMessage).toContainText("Authentication failed");
         break;
       }

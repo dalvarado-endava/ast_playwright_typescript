@@ -1,20 +1,10 @@
 import { Page, Locator, expect } from "@playwright/test";
+import { AbstractPage } from "./AbstractPage";
 
-export class HomePage {
-  //Define locators
-  readonly page: Page;
-  readonly loginButton: Locator;
-
+export class HomePage extends AbstractPage {
   // init locators with constructor
   constructor(page: Page) {
-    this.page = page;
-    this.loginButton = page.locator(".login");
+    super(page);
   }
   //define methods
-  async visit() {
-    await this.page.goto("http://automationpractice.com/index.php");
-  }
-  async clickLogin() {
-    await this.loginButton.click();
-  }
 }
