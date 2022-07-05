@@ -8,6 +8,6 @@ export class AbstractPage {
   }
 
   async visitHome() {
-    await this.page.goto("http://automationpractice.com");
+    await this.page.goto("http://automationpractice.com/index.php");
   }
 }

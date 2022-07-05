@@ -3,7 +3,8 @@ import { PlaywrightTestConfig } from "@playwright/test";
 const config: PlaywrightTestConfig = {
   timeout: 30000,
   retries: 0,
-  workers: 4,
+  workers: 2,
+  testDir: "tests/e2e",
 
   use: {
     headless: true,
