@@ -1,5 +1,5 @@
 import { Page, Locator, expect } from "@playwright/test";
-import { AbstractPage } from "./AbstractPage";
+import { AbstractPage } from "../AbstractPage";
 
 export class ProductListPage extends AbstractPage {
   readonly firstProductContainer: Locator;

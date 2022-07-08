@@ -1,6 +1,6 @@
 import { Page, Locator, expect } from "@playwright/test";
-import { LoginError } from "../helpers/Enums";
-import { AbstractPage } from "./AbstractPage";
+import { LoginError } from "../../helpers/Enums";
+import { AbstractPage } from "../AbstractPage";
 
 export class LoginPage extends AbstractPage {
   readonly emailInput: Locator;
@@ -51,8 +51,7 @@ export class LoginPage extends AbstractPage {
         break;
       }
       default: {
-        await expect(this.alertMessage).not.toBeVisible();
-        break;
+        throw new Error("That error does not exist");
       }
     }
   }

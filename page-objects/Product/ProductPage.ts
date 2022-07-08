@@ -1,6 +1,6 @@
 import { Locator, Page, expect } from "@playwright/test";
-import { AbstractPage } from "./AbstractPage";
-import { AddToCartPopUp } from "./components/AddToCartPopUp";
+import { AbstractPage } from "../AbstractPage";
+import { AddToCartPopUp } from "../components/AddToCartPopUp";
 
 export class ProductPage extends AbstractPage {
   readonly productName: Locator;

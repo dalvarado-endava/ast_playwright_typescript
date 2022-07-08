@@ -1,16 +1,20 @@
 import { test, expect } from "@playwright/test";
 import { LoginError, NavbarButton } from "../../helpers/Enums";
+import { AccountPage } from "../../page-objects/Account/AccountPage";
 import { Navbar } from "../../page-objects/components/Navbar";
-import { HomePage } from "../../page-objects/HomePage";
-import { LoginPage } from "../../page-objects/LoginPage";
+import { HomePage } from "../../page-objects/Home/HomePage";
+import { LoginPage } from "../../page-objects/Login/LoginPage";
 
 test.describe.parallel("Login flow", () => {
   let homePage: HomePage;
   let loginPage: LoginPage;
+  let accountPage: AccountPage;
   let navBar: Navbar;
+
   test.beforeEach(async ({ page }) => {
     homePage = new HomePage(page);
     loginPage = new LoginPage(page);
+    accountPage = new AccountPage(page);
     navBar = new Navbar(page);
     await homePage.visitHome();
     await navBar.clickOn(NavbarButton.SIGNIN);
@@ -31,7 +35,6 @@ test.describe.parallel("Login flow", () => {
 
   test("Positive scenario - valid username and password", async ({ page }) => {
     await loginPage.login("testafloyd@gmail.com", "asdasd1234");
-    const successLogin = await page.locator("h1.page-heading");
-    await expect(successLogin).toContainText("My account");
+    await accountPage.assertSuccess();
   });
 });

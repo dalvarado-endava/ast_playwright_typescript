@@ -1,6 +1,6 @@
 import { Page, Locator, expect } from "@playwright/test";
-import { RegisterError } from "../helpers/Enums";
-import { AbstractPage } from "./AbstractPage";
+import { RegisterError } from "../../helpers/Enums";
+import { AbstractPage } from "../AbstractPage";
 
 export class RegisterPage extends AbstractPage {
   readonly customerFirstNameInput: Locator;
