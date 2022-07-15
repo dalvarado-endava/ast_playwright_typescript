@@ -6,7 +6,8 @@
   "scripts": {
     "test:e2e:chrome": "playwright test --config=e2e.config.ts --project=Chrome",
     "test:e2e:firefox": "playwright test --config=e2e.config.ts --project=Firefox",
-    "test:e2e:webkit": "playwright test --config=e2e.config.ts --project=Webkit"
+    "test:e2e:webkit": "playwright test --config=e2e.config.ts --project=Webkit",
+    "test:show-report": "playwright show-report"
   },
   "repository": {
     "type": "git",

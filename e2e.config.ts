@@ -1,10 +1,10 @@
 import { PlaywrightTestConfig } from "@playwright/test";
 
 const config: PlaywrightTestConfig = {
-  timeout: 30000,
+  timeout: 60000,
   retries: 0,
-  workers: 2,
   testDir: "tests/e2e",
+  reporter: [["list"], ["html"]],
 
   use: {
     headless: true,

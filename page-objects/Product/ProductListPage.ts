@@ -3,15 +3,21 @@ import { AbstractPage } from "../AbstractPage";
 
 export class ProductListPage extends AbstractPage {
   readonly firstProductContainer: Locator;
+  readonly categoryList: Locator;
 
   constructor(page: Page) {
     super(page);
     this.firstProductContainer = page.locator(
-      ":nth-match('product-container', 1)"
+      "//a[contains(text(),'Faded Short Sleeve T-shirts')]"
     );
+    this.categoryList = page.locator("#categories_block_left");
   }
 
   async clickOnProduct() {
     await this.firstProductContainer.click();
+  }
+
+  async waitForList() {
+    await this.categoryList.waitFor({ state: "visible" });
   }
 }

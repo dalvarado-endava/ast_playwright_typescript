@@ -14,6 +14,7 @@ export enum RegisterError {
   ZIPCODE,
   STATE,
   COUNTRY,
+  ALIAS,
 }
 
 export enum NavbarButton {

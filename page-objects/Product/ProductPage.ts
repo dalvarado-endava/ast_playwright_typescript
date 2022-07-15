@@ -1,6 +1,5 @@
 import { Locator, Page, expect } from "@playwright/test";
 import { AbstractPage } from "../AbstractPage";
-import { AddToCartPopUp } from "../components/AddToCartPopUp";
 
 export class ProductPage extends AbstractPage {
   readonly productName: Locator;
@@ -30,5 +29,9 @@ export class ProductPage extends AbstractPage {
   }
   async addToCart() {
     await this.addToCartButton.click();
+  }
+
+  async waitVisibleProductName() {
+    await this.productName.waitFor({ state: "visible" });
   }
 }
