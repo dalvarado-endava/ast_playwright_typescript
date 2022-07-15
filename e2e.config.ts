@@ -4,7 +4,11 @@ const config: PlaywrightTestConfig = {
   timeout: 60000,
   retries: 0,
   testDir: "tests/e2e",
-  reporter: [["list"], ["html"]],
+  reporter: [
+    ["list"],
+    ["html"],
+    ["allure-playwright", { outputFolder: "allure-results" }],
+  ],
 
   use: {
     headless: true,
