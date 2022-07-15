@@ -13,7 +13,7 @@ import { RegisterPage } from "../../page-objects/Register/RegisterPage";
 import * as addressData from "../../testdata//addressData.json";
 import { RegisteredUserData } from "../../testdata/UserData";
 
-test.describe.only("Update address", () => {
+test.describe("Update address", () => {
   let homepage: HomePage;
   let loginpage: LoginPage;
   let navBar: Navbar;
@@ -38,7 +38,7 @@ test.describe.only("Update address", () => {
     await accountPage.clickOn(AccountButton.ADDRESSES);
   });
 
-  test("Positive scenario - added new address", async ({ page }) => {
+  test.skip("Positive scenario - added new address", async ({ page }) => {
     await myAddressPage.addNewAddress();
     await registerAddressPage.fillNewAddressForm(
       addressData.address,
@@ -54,7 +54,7 @@ test.describe.only("Update address", () => {
     await expect(newAddressName).toBeVisible();
   });
 
-  test.only("Negative scenario - Incomplete address form: no address", async ({
+  test("Negative scenario - Incomplete address form: no address", async ({
     page,
   }) => {
     await myAddressPage.addNewAddress();
@@ -67,7 +67,7 @@ test.describe.only("Update address", () => {
     );
     await registerAddressPage.assertError(RegisterError.ADDRESS);
   });
-  test.only("Negative scenario - Incomplete address form: no city", async ({
+  test("Negative scenario - Incomplete address form: no city", async ({
     page,
   }) => {
     await myAddressPage.addNewAddress();
@@ -80,7 +80,7 @@ test.describe.only("Update address", () => {
     );
     await registerAddressPage.assertError(RegisterError.CITY);
   });
-  test.only("Negative scenario - Incomplete address form: no zipcode", async ({
+  test("Negative scenario - Incomplete address form: no zipcode", async ({
     page,
   }) => {
     await myAddressPage.addNewAddress();
@@ -93,7 +93,7 @@ test.describe.only("Update address", () => {
     );
     await registerAddressPage.assertError(RegisterError.ZIPCODE);
   });
-  test.only("Negative scenario - Incomplete address form: no phone", async ({
+  test("Negative scenario - Incomplete address form: no phone", async ({
     page,
   }) => {
     await myAddressPage.addNewAddress();
@@ -106,7 +106,7 @@ test.describe.only("Update address", () => {
     );
     await registerAddressPage.assertError(RegisterError.PHONE);
   });
-  test.only("Negative scenario - Incomplete address form: no alias", async ({
+  test("Negative scenario - Incomplete address form: no alias", async ({
     page,
   }) => {
     await myAddressPage.addNewAddress();
