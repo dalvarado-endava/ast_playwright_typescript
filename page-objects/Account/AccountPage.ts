@@ -28,19 +28,19 @@ export class AccountPage extends AbstractPage {
         await this.orderHistory.click();
         break;
       case AccountButton.CREDIT_SLIPS:
-        await this.orderHistory.click();
+        await this.creditSlips.click();
         break;
       case AccountButton.ADDRESSES:
-        await this.orderHistory.click();
+        await this.addresses.click();
         break;
       case AccountButton.PERSONAL_INFO:
-        await this.orderHistory.click();
+        await this.personalInfo.click();
         break;
       case AccountButton.WISHLIST:
-        await this.orderHistory.click();
+        await this.wishlist.click();
         break;
       case AccountButton.HOME:
-        await this.orderHistory.click();
+        await this.homeButton.click();
         break;
       default:
         throw new Error("That button does not exist");

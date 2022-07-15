@@ -1,4 +1,5 @@
 import { Page } from "@playwright/test";
+import { Urls } from "../testdata/UserData";
 
 export class AbstractPage {
   readonly page: Page;
@@ -7,7 +8,7 @@ export class AbstractPage {
     this.page = page;
   }
 
-  async visitHome() {
-    await this.page.goto("http://automationpractice.com/index.php");
+  async visit() {
+    await this.page.goto(Urls.baseUrl);
   }
 }

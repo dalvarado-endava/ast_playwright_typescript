@@ -14,6 +14,7 @@ export class RegisterPage extends AbstractPage {
   readonly zipCode: Locator;
   readonly countrySelector: Locator;
   readonly mobilePhone: Locator;
+  readonly addressAlias: Locator;
 
   readonly errorAmount: Locator;
   readonly phoneErrorMessage: Locator;
@@ -25,8 +26,10 @@ export class RegisterPage extends AbstractPage {
   readonly zipErrorMessage: Locator;
   readonly stateErrorMessage: Locator;
   readonly countryErrorMessage: Locator;
+  readonly aliasErrorMessage: Locator;
 
   readonly submitButton: Locator;
+  readonly submitAddressButton: Locator;
 
   constructor(page: Page) {
     super(page);
@@ -42,6 +45,8 @@ export class RegisterPage extends AbstractPage {
     this.countrySelector = page.locator("#id_country");
     this.mobilePhone = page.locator("#phone_mobile");
     this.submitButton = page.locator("#submitAccount");
+    this.submitAddressButton = page.locator("#submitAddress");
+    this.addressAlias = page.locator("#alias");
 
     //errorAmount
     this.errorAmount = page.locator(
@@ -68,6 +73,7 @@ export class RegisterPage extends AbstractPage {
       "text='This country requires you to choose a State'"
     );
     this.countryErrorMessage = page.locator("text='Country is invalid'");
+    this.aliasErrorMessage = page.locator('//li[contains(text(),"The alias")]');
   }
 
   async fillRegisterForm(
@@ -76,8 +82,8 @@ export class RegisterPage extends AbstractPage {
     password?: string,
     address?: string,
     city?: string,
-    zipCode?: number,
-    mobilePhone?: number
+    zipCode?: string,
+    mobilePhone?: string
   ) {
     if (typeof customerName !== "undefined") {
       await this.customerFirstNameInput.type(customerName);
@@ -96,10 +102,10 @@ export class RegisterPage extends AbstractPage {
     }
     await this.stateSelector.selectOption("1");
     if (typeof zipCode !== "undefined") {
-      await this.zipCode.type(zipCode.toString());
+      await this.zipCode.type(zipCode);
     }
     if (typeof mobilePhone !== "undefined") {
-      await this.mobilePhone.type(mobilePhone.toString());
+      await this.mobilePhone.type(mobilePhone);
     }
 
     await this.submitButton.click();
@@ -138,9 +144,38 @@ export class RegisterPage extends AbstractPage {
       case RegisterError.COUNTRY:
         await expect(this.countryErrorMessage).toBeVisible();
         break;
+      case RegisterError.ALIAS:
+        await expect(this.aliasErrorMessage).toBeVisible();
+        break;
 
       default:
         throw new Error("This error does not exist");
     }
+  }
+
+  async fillNewAddressForm(
+    address?: string,
+    city?: string,
+    zip?: string,
+    phone?: string,
+    addressReference?: string
+  ) {
+    if (typeof address !== "undefined") {
+      await this.addressInput.type(address);
+    }
+    if (typeof city !== "undefined") {
+      await this.cityInput.type(city);
+    }
+    await this.stateSelector.selectOption("1");
+    if (typeof zip !== "undefined") {
+      await this.zipCode.type(zip);
+    }
+    if (typeof phone !== "undefined") {
+      await this.mobilePhone.type(phone);
+    }
+    if (typeof addressReference !== "undefined") {
+      await this.addressAlias.fill(addressReference);
+    }
+    await this.submitAddressButton.click();
   }
 }

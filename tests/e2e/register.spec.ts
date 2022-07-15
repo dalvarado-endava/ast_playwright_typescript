@@ -7,6 +7,10 @@ import { Navbar } from "../../page-objects/components/Navbar";
 import { RegisterPage } from "../../page-objects/Register/RegisterPage";
 import { AccountPage } from "../../page-objects/Account/AccountPage";
 import { getRandomEmail } from "../../helpers/data-helpers";
+import {
+  InvalidCredentials,
+  UnregisteredUserData,
+} from "../../testdata/UserData";
 
 test.describe.parallel("Register flow", () => {
   let loginPage: LoginPage;
@@ -27,12 +31,12 @@ test.describe.parallel("Register flow", () => {
     accountPage = new AccountPage(page);
     navBar = new Navbar(page);
 
-    await homePage.visitHome();
+    await homePage.visit();
     await navBar.clickOn(NavbarButton.SIGNIN);
   });
 
   test("Negative scenario - Invalid email ", async ({ page }) => {
-    await loginPage.createAccount("invalid-at-email-dot-com");
+    await loginPage.createAccount(InvalidCredentials.invalidEmail);
     await loginPage.assertErrorMessage(LoginError.EMAIL);
   });
 
@@ -46,12 +50,12 @@ test.describe.parallel("Register flow", () => {
   test("Negative scenario - fill form with empty phone", async ({ page }) => {
     await loginPage.createAccount(randomEmail);
     await registerPage.fillRegisterForm(
-      "name",
-      "lastname",
-      "password",
-      "some address",
-      "some city",
-      11111
+      UnregisteredUserData.name,
+      UnregisteredUserData.lastName,
+      UnregisteredUserData.password,
+      UnregisteredUserData.address,
+      UnregisteredUserData.city,
+      UnregisteredUserData.zipcode
     );
     await registerPage.assertErrorAmount(1);
     await registerPage.assertError(RegisterError.PHONE);
@@ -62,12 +66,12 @@ test.describe.parallel("Register flow", () => {
     await loginPage.createAccount(randomEmail);
     await registerPage.fillRegisterForm(
       undefined,
-      "lastname",
-      "password",
-      "some address",
-      "some city",
-      11111,
-      1111111111
+      UnregisteredUserData.lastName,
+      UnregisteredUserData.password,
+      UnregisteredUserData.address,
+      UnregisteredUserData.city,
+      UnregisteredUserData.zipcode,
+      UnregisteredUserData.number
     );
     await registerPage.assertErrorAmount(1);
     await registerPage.assertError(RegisterError.FIRSTNAME);
@@ -77,13 +81,13 @@ test.describe.parallel("Register flow", () => {
   }) => {
     await loginPage.createAccount(randomEmail);
     await registerPage.fillRegisterForm(
-      "name",
+      UnregisteredUserData.name,
       undefined,
-      "password",
-      "some address",
-      "some city",
-      11111,
-      1111111111
+      UnregisteredUserData.password,
+      UnregisteredUserData.address,
+      UnregisteredUserData.city,
+      UnregisteredUserData.zipcode,
+      UnregisteredUserData.number
     );
     await registerPage.assertErrorAmount(1);
     await registerPage.assertError(RegisterError.LASTNAME);
@@ -93,13 +97,13 @@ test.describe.parallel("Register flow", () => {
   }) => {
     await loginPage.createAccount(randomEmail);
     await registerPage.fillRegisterForm(
-      "name",
-      "lastname",
+      UnregisteredUserData.name,
+      UnregisteredUserData.lastName,
       undefined,
-      "some address",
-      "some city",
-      11111,
-      1111111111
+      UnregisteredUserData.address,
+      UnregisteredUserData.city,
+      UnregisteredUserData.zipcode,
+      UnregisteredUserData.number
     );
     await registerPage.assertErrorAmount(1);
     await registerPage.assertError(RegisterError.PASSWORD);
@@ -107,13 +111,13 @@ test.describe.parallel("Register flow", () => {
   test("Negative scenario - fill form with empty address", async ({ page }) => {
     await loginPage.createAccount(randomEmail);
     await registerPage.fillRegisterForm(
-      "name",
-      "lastname",
-      "password",
+      UnregisteredUserData.name,
+      UnregisteredUserData.lastName,
+      UnregisteredUserData.password,
       undefined,
-      "some city",
-      11111,
-      1111111111
+      UnregisteredUserData.city,
+      UnregisteredUserData.zipcode,
+      UnregisteredUserData.number
     );
     await registerPage.assertErrorAmount(1);
     await registerPage.assertError(RegisterError.ADDRESS);
@@ -121,13 +125,13 @@ test.describe.parallel("Register flow", () => {
   test("Negative scenario - fill form with empty city", async ({ page }) => {
     await loginPage.createAccount(randomEmail);
     await registerPage.fillRegisterForm(
-      "name",
-      "lastname",
-      "password",
-      "some address",
+      UnregisteredUserData.name,
+      UnregisteredUserData.lastName,
+      UnregisteredUserData.password,
+      UnregisteredUserData.address,
       undefined,
-      11111,
-      1111111111
+      UnregisteredUserData.zipcode,
+      UnregisteredUserData.number
     );
     await registerPage.assertErrorAmount(1);
     await registerPage.assertError(RegisterError.CITY);
@@ -135,13 +139,13 @@ test.describe.parallel("Register flow", () => {
   test("Negative scenario - fill form with empty zipcode", async ({ page }) => {
     await loginPage.createAccount(randomEmail);
     await registerPage.fillRegisterForm(
-      "name",
-      "lastname",
-      "password",
-      "some address",
-      "some city",
+      UnregisteredUserData.name,
+      UnregisteredUserData.lastName,
+      UnregisteredUserData.password,
+      UnregisteredUserData.address,
+      UnregisteredUserData.city,
       undefined,
-      1111111111
+      UnregisteredUserData.number
     );
     await registerPage.assertErrorAmount(1);
     await registerPage.assertError(RegisterError.ZIPCODE);
@@ -150,13 +154,13 @@ test.describe.parallel("Register flow", () => {
   test("Positive scenario - Successful register", async ({ page }) => {
     await loginPage.createAccount(randomEmail);
     await registerPage.fillRegisterForm(
-      "name",
-      "lastname",
-      "password",
-      "some address",
-      "some city",
-      11111,
-      1111111111
+      UnregisteredUserData.name,
+      UnregisteredUserData.lastName,
+      UnregisteredUserData.password,
+      UnregisteredUserData.address,
+      UnregisteredUserData.city,
+      UnregisteredUserData.zipcode,
+      UnregisteredUserData.number
     );
     await accountPage.assertSuccess();
   });
